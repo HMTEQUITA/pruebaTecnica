@@ -1,0 +1,26 @@
+
+.tl-destacados .table {
+    height: 100%;
+}
+
+.container{
+	height: 100%;
+	padding-top: 10px; 
+	padding-bottom: 10px;
+}
+
+.tl-center{
+	text-align: center;
+}
+
+.tl-button-center{
+	 margin: 0 auto;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+}
+

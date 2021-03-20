@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: headerfiles">
+</head>
+<body>
+<header th:insert="fragments :: nav"></header>
+
+<div class="container d-flex justify-content-center">
+    <div class="card">
+        <div class="card-header">
+			<h3 class=" tl-center">Crear libro</h3>
+        </div>
+        <div class="card-body tl-destacados"  >
+            <form th:action="@{/libro/form}" th:object="${libro}" method="post" sec:authorize="isAuthenticated()">
+               <div class="form-row">
+	                 <div class="form-group col-md-12 mb-4">
+	                    <label for="nombre">Nombre</label>
+	                    <input type="text" th:field="*{nombre}" class="form-control" id="nombre" name="nombre" autocomplete="off" >
+	                    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+	                </div>
+		
+					<div class="form-group col-md-12 mb-4">
+	                    <label for="autor">Autor</label>
+	                    
+	                    <select th:field="*{autor}" class="form-control" id="autor" name="autor" >
+    						<option th:each="autor : ${autores}" th:text="${autor.toString()}" th:value="${autor.id}"></option>
+						</select>
+	                </div>
+	                
+	                
+	                <div class="form-group col-md-12 mb-4">
+	                    <label for="categoria">Categoria</label>
+	                    
+	                    <select th:field="*{categoria}" class="form-control" id="categoria" name="categoria" >
+    						<option th:each="categoria : ${categorias}" th:text="${categoria.categoriaNombre}" th:value="${categoria.id}"></option>
+						</select>
+	                </div>
+	                
+		
+	                <div class="form-group col-md-12 mb-4">
+	                    <label for="valorTarifa">Valor tarifa</label>
+	                    
+	                    <select th:field="*{tarifa}" class="form-control" id="tarifa" name="tarifa" >
+    						<option th:each="tarifa : ${tarifas}" th:text="${tarifa.nombre} +' - '+ ${tarifa.valorTarifa}" th:value="${tarifa.id}"></option>
+						</select>
+	                </div>
+	                
+	                <div class="form-group col-md-12 mb-4">
+	                    <label for="cantidadDisponible">Cantidad Disponible</label>
+	                    <input type="number" th:field="*{cantidadDisponible}" class="form-control" id="cantidadDisponible" name="cantidadDisponible">
+	                    <small class="form-text text-danger" th:if="${#fields.hasErrors('cantidadDisponible')}" th:errors="*{cantidadDisponible}"></small>
+	                </div>
+
+					<div class="form-group col-md-12 mb-4">
+	                    <label for="cantidadReservada">Cantidad Reservada</label>
+	                    <input type="number" th:field="*{cantidadReservada}" class="form-control" id="cantidadReservada" name="cantidadReservada">
+	                    <small class="form-text text-danger" th:if="${#fields.hasErrors('cantidadReservada')}" th:errors="*{cantidadReservada}"></small>
+	                </div>
+
+	                <div class="form-group col-md-12 mb-4" >
+	                    <button type="submit" class="btn btn-outline-success btn-block">
+	                        <i class="fas fa-user-plus"></i> Crear Libro</button>
+	                </div>
+	                
+                </div>              
+                <input type="hidden" th:field="*{id}">
+            </form>
+
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                <p th:text="${error}"></p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="fragments :: footer"></footer>
+<div th:insert="fragments :: scripts"></div>
+</body>
+</html>

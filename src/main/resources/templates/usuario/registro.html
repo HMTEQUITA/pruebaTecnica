@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: headerfiles">
+</head>
+<body>
+<header th:insert="fragments :: nav"></header>
+
+<div class="container d-flex justify-content-center">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/usuario/login}">
+                        <i class="fas fa-user"></i> Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/usuario/registro}">
+                        <i class="fas fa-user-plus"></i> Registro</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="card-body tl-destacados"  >
+            <form th:action="@{/usuario/registrar}" method="post" sec:authorize="!isAuthenticated()">
+               <div class="form-row">
+	                <div class="form-group col-md-6 mb-4" >
+	                    <label for="correoUsuario">Correo de Usuario</label>
+	                    <input type="email" class="form-control" id="correoUsuario" name="correoUsuario" required="required" autocomplete="off">
+	                </div>
+	                <div class="form-group col-md-6 mb-4">
+	                    <label for="password">Contrase&ntilde;a</label>
+	                    <input type="password" class="form-control" id="password" name="password" required="required">
+	                </div>
+	                
+	                 <div class="form-group col-md-6 mb-4">
+	                    <label for="primerApellido">Primer Apellido</label>
+	                    <input type="text" class="form-control" id="primerApellido" name="primerApellido" required="required" autocomplete="off">
+	                </div>
+	                
+	                <div class="form-group col-md-6 mb-4">
+	                    <label for="segundoApellido">Segundo Apellido</label>
+	                    <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" autocomplete="off">
+	                </div>
+	                
+	                 <div class="form-group col-md-6 mb-4">
+	                    <label for="primerNombre">Primer Nombre</label>
+	                    <input type="text" class="form-control" id="primerNombre" name="primerNombre" required="required" autocomplete="off">
+	                </div>
+	                
+	                <div class="form-group col-md-6 mb-4">
+	                    <label for="segundoNombre">Segundo Nombre</label>
+	                    <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" autocomplete="off">
+	                </div>
+	                
+	                <div class="form-group col-md-6 mb-4">
+	                    <label for="celular">Celular (10 d&iacute;gitos comenzando por 3)</label>
+	                    <input type="text" pattern="^[3]\d{9}$"  class="form-control" id="celular" name="celular" required="required" autocomplete="off">
+	                </div>
+	                
+	                <div class="form-group col-md-6 mb-4">
+	                    <label for="direccion">Direcci&oacute;n</label>
+	                    <input type="text" class="form-control" id="direccion" name="direccion" required="required" autocomplete="off">
+	                </div>
+	                
+	                 
+	                <div class="form-group col-md-6 mb-4" >
+	                    <button type="submit" class="btn btn-outline-success btn-block">
+	                        <i class="fas fa-user-plus"></i> Crear Cuenta</button>
+	                </div>
+	                
+                </div>
+            </form>
+
+            <p sec:authorize="isAuthenticated()">Ya has iniciado sesión, lo que implica que ya tienes cuenta</p>
+
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                <p th:text="${error}"></p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="fragments :: footer"></footer>
+<div th:insert="fragments :: scripts"></div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: headerfiles">
+</head>
+<body>
+<header th:insert="fragments :: nav"></header>
+
+<div class="container d-flex justify-content-center">
+    <div class="card">
+        <div class="card-header">
+            <h3 class=" tl-center">Detalle Libro</h3>
+        </div>
+        <div class="card-body vj-destacados"  >
+         
+            <form th:action="@{/carro/agregarAlCarro(id=${libro.id})}" method="post">
+                <div class="form-row">
+		            <table class="table table-striped table-hover table-bordered my-3">
+						<thead class="thead-dark tl-center">
+							<tr>
+								<th scope="col">&Iacute;ndice</th>
+								<th scope="col">Descripci&oacute;n</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Libro</td>
+								<td th:text="${libro.nombre}"></td>
+							</tr>
+							<tr>
+								<td>Autor</td>
+								<td th:text="${libro.autor}"></td>
+							</tr>
+							<tr>
+								<td>Categor&iacute;a</td>
+								<td th:text="${libro.categoria.categoriaNombre}"></td>
+							</tr>
+							<tr>
+								<td>Tarifa</td>
+								<td th:text="${#numbers.formatInteger(libro.tarifa.valorTarifa, 3, 'POINT')}"></td>
+							</tr>
+							<tr>
+								<td>Unidades disponibles</td>
+								<td th:text="${libro.cantidadDisponible}"></td>
+							</tr>
+							
+							<tr>
+								<td>cantidad libros solicitados</td>
+								<td>
+									<input type="number" id="cantidad" name="cantidad"  value="1" min="1">
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<td>Fecha devoluci&oacute;n</td>
+								<td>
+									<div>
+										<input type="date" id="fechaDevolucion" name="fechaDevolucion"
+												th:attr="value=${fechaMinimaDevolucion}, min=${fechaMinimaDevolucion}, max=${fechaMaximaDevolucion}">
+									</div>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Nota</td>
+								<td>
+									<p>Fecha de entrega m&iacute;nima d&iacute;a siguiente y m&aacute;xima 30 d&iacute;as </p>	
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+					
+					<div class="tl-button-center">		
+		            	<button type="submit" class="btn btn-success">                       
+		                	<i class="fas fa-shopping-cart"></i> A&ntilde;adir al carro
+		                </button>
+					</div>
+
+            	</div>
+            </form>
+
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                <p th:text="${error}"></p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="fragments :: footer"></footer>
+<div th:insert="fragments :: scripts"></div>
+</body>
+</html>
